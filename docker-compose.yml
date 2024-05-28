@@ -1,15 +1,20 @@
-version: '3.7'
+version: '3.8'
 
 services:
 
-  postgresql_db:
+  # PostgreSQL
+  postgre_sql:
     image: postgres:15.2
-    container_name: postgresql_db
+    restart: always
+    container_name: postgre_sql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      # ----- #
       - postgres_data:/var/lib/postgresql/data
+      # ----- #
     ports:
       - "5432:5432"
     networks:
